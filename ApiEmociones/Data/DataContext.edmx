@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="emocional_SampleDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Emociones">
+          <Key>
+            <PropertyRef Name="id_emocion" />
+          </Key>
+          <Property Name="id_emocion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="emocionNombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmocionesUsuario">
+          <Key>
+            <PropertyRef Name="id_emocion_usuario" />
+          </Key>
+          <Property Name="id_emocion_usuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_usuario" Type="int" Nullable="false" />
+          <Property Name="id_emocion" Type="int" Nullable="false" />
+          <Property Name="cantidad" Type="int" />
+        </EntityType>
+        <EntityType Name="Nota">
+          <Key>
+            <PropertyRef Name="id_nota" />
+          </Key>
+          <Property Name="id_nota" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_usuario" Type="int" Nullable="false" />
+          <Property Name="id_emocion" Type="int" Nullable="false" />
+          <Property Name="texto" Type="varchar" MaxLength="1000" />
+          <Property Name="fecha" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="correo" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="apodo" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Emociones__id_em__398D8EEE">
+          <End Role="Emociones" Type="Self.Emociones" Multiplicity="1" />
+          <End Role="EmocionesUsuario" Type="Self.EmocionesUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Emociones">
+              <PropertyRef Name="id_emocion" />
+            </Principal>
+            <Dependent Role="EmocionesUsuario">
+              <PropertyRef Name="id_emocion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Emociones__id_us__38996AB5">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EmocionesUsuario" Type="Self.EmocionesUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="EmocionesUsuario">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Nota__id_emocion__2A4B4B5E">
+          <End Role="Emociones" Type="Self.Emociones" Multiplicity="1" />
+          <End Role="Nota" Type="Self.Nota" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Emociones">
+              <PropertyRef Name="id_emocion" />
+            </Principal>
+            <Dependent Role="Nota">
+              <PropertyRef Name="id_emocion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Nota__id_usuario__29572725">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Nota" Type="Self.Nota" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Nota">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="emocional_SampleDBModelStoreContainer">
+          <EntitySet Name="Emociones" EntityType="Self.Emociones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmocionesUsuario" EntityType="Self.EmocionesUsuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Nota" EntityType="Self.Nota" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Emociones__id_em__398D8EEE" Association="Self.FK__Emociones__id_em__398D8EEE">
+            <End Role="Emociones" EntitySet="Emociones" />
+            <End Role="EmocionesUsuario" EntitySet="EmocionesUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Emociones__id_us__38996AB5" Association="Self.FK__Emociones__id_us__38996AB5">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="EmocionesUsuario" EntitySet="EmocionesUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Nota__id_emocion__2A4B4B5E" Association="Self.FK__Nota__id_emocion__2A4B4B5E">
+            <End Role="Emociones" EntitySet="Emociones" />
+            <End Role="Nota" EntitySet="Nota" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Nota__id_usuario__29572725" Association="Self.FK__Nota__id_usuario__29572725">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Nota" EntitySet="Nota" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="emocional_SampleDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Emociones">
+          <Key>
+            <PropertyRef Name="id_emocion" />
+          </Key>
+          <Property Name="id_emocion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="emocionNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="EmocionesUsuario" Relationship="Self.FK__Emociones__id_em__398D8EEE" FromRole="Emociones" ToRole="EmocionesUsuario" />
+          <NavigationProperty Name="Nota" Relationship="Self.FK__Nota__id_emocion__2A4B4B5E" FromRole="Emociones" ToRole="Nota" />
+        </EntityType>
+        <EntityType Name="EmocionesUsuario">
+          <Key>
+            <PropertyRef Name="id_emocion_usuario" />
+          </Key>
+          <Property Name="id_emocion_usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_usuario" Type="Int32" Nullable="false" />
+          <Property Name="id_emocion" Type="Int32" Nullable="false" />
+          <Property Name="cantidad" Type="Int32" />
+          <NavigationProperty Name="Emociones" Relationship="Self.FK__Emociones__id_em__398D8EEE" FromRole="EmocionesUsuario" ToRole="Emociones" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK__Emociones__id_us__38996AB5" FromRole="EmocionesUsuario" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Nota">
+          <Key>
+            <PropertyRef Name="id_nota" />
+          </Key>
+          <Property Name="id_nota" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_usuario" Type="Int32" Nullable="false" />
+          <Property Name="id_emocion" Type="Int32" Nullable="false" />
+          <Property Name="texto" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Emociones" Relationship="Self.FK__Nota__id_emocion__2A4B4B5E" FromRole="Nota" ToRole="Emociones" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK__Nota__id_usuario__29572725" FromRole="Nota" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="correo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apodo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="EmocionesUsuario" Relationship="Self.FK__Emociones__id_us__38996AB5" FromRole="Usuarios" ToRole="EmocionesUsuario" />
+          <NavigationProperty Name="Nota" Relationship="Self.FK__Nota__id_usuario__29572725" FromRole="Usuarios" ToRole="Nota" />
+        </EntityType>
+        <Association Name="FK__Emociones__id_em__398D8EEE">
+          <End Role="Emociones" Type="Self.Emociones" Multiplicity="1" />
+          <End Role="EmocionesUsuario" Type="Self.EmocionesUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Emociones">
+              <PropertyRef Name="id_emocion" />
+            </Principal>
+            <Dependent Role="EmocionesUsuario">
+              <PropertyRef Name="id_emocion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Nota__id_emocion__2A4B4B5E">
+          <End Role="Emociones" Type="Self.Emociones" Multiplicity="1" />
+          <End Role="Nota" Type="Self.Nota" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Emociones">
+              <PropertyRef Name="id_emocion" />
+            </Principal>
+            <Dependent Role="Nota">
+              <PropertyRef Name="id_emocion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Emociones__id_us__38996AB5">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EmocionesUsuario" Type="Self.EmocionesUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="EmocionesUsuario">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Nota__id_usuario__29572725">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Nota" Type="Self.Nota" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Nota">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="emocional_SampleDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Emociones" EntityType="Self.Emociones" />
+          <EntitySet Name="EmocionesUsuario" EntityType="Self.EmocionesUsuario" />
+          <EntitySet Name="Nota" EntityType="Self.Nota" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
+          <AssociationSet Name="FK__Emociones__id_em__398D8EEE" Association="Self.FK__Emociones__id_em__398D8EEE">
+            <End Role="Emociones" EntitySet="Emociones" />
+            <End Role="EmocionesUsuario" EntitySet="EmocionesUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Nota__id_emocion__2A4B4B5E" Association="Self.FK__Nota__id_emocion__2A4B4B5E">
+            <End Role="Emociones" EntitySet="Emociones" />
+            <End Role="Nota" EntitySet="Nota" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Emociones__id_us__38996AB5" Association="Self.FK__Emociones__id_us__38996AB5">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="EmocionesUsuario" EntitySet="EmocionesUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Nota__id_usuario__29572725" Association="Self.FK__Nota__id_usuario__29572725">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Nota" EntitySet="Nota" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="emocional_SampleDBModelStoreContainer" CdmEntityContainer="emocional_SampleDBEntities">
+          <EntitySetMapping Name="Emociones">
+            <EntityTypeMapping TypeName="emocional_SampleDBModel.Emociones">
+              <MappingFragment StoreEntitySet="Emociones">
+                <ScalarProperty Name="id_emocion" ColumnName="id_emocion" />
+                <ScalarProperty Name="emocionNombre" ColumnName="emocionNombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmocionesUsuario">
+            <EntityTypeMapping TypeName="emocional_SampleDBModel.EmocionesUsuario">
+              <MappingFragment StoreEntitySet="EmocionesUsuario">
+                <ScalarProperty Name="id_emocion_usuario" ColumnName="id_emocion_usuario" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="id_emocion" ColumnName="id_emocion" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Nota">
+            <EntityTypeMapping TypeName="emocional_SampleDBModel.Nota">
+              <MappingFragment StoreEntitySet="Nota">
+                <ScalarProperty Name="id_nota" ColumnName="id_nota" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="id_emocion" ColumnName="id_emocion" />
+                <ScalarProperty Name="texto" ColumnName="texto" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="emocional_SampleDBModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="apodo" ColumnName="apodo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

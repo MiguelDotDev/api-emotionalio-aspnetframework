@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e9c72098b4044b25b131756c3d9873b6" Name="Diagram1">
+        <EntityTypeShape EntityType="emocional_SampleDBModel.Emociones" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="emocional_SampleDBModel.EmocionesUsuario" Width="2.5" PointX="3.875" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="emocional_SampleDBModel.Nota" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="emocional_SampleDBModel.Usuarios" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <AssociationConnector Association="emocional_SampleDBModel.FK__Emociones__id_em__398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="emocional_SampleDBModel.FK__Nota__id_emocion__2A4B4B5E" ManuallyRouted="false" />
+        <AssociationConnector Association="emocional_SampleDBModel.FK__Emociones__id_us__38996AB5" ManuallyRouted="false" />
+        <AssociationConnector Association="emocional_SampleDBModel.FK__Nota__id_usuario__29572725" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
